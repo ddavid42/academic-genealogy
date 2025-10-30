@@ -46,14 +46,16 @@ python export_genealogy_html.py d3_tree_<person_id>.json arbre.html --nom "Nom R
 - Le paramètre `--nom` permet d'afficher dynamiquement le nom central dans l'arbre (ex: "God Father").
 - Ouvrez simplement `arbre.html` dans votre navigateur pour explorer l'arbre généalogique interactif (zoom, tooltip, navigation, etc.).
 
-## 📂 Structure du projet
+## Structure du projet
 
 ```
-JMM/
+/
 ├── academic_genealogy.py          # Construction récursive de l'arbre
 ├── export_d3_tree.py              # Conversion JSON pour D3
 ├── export_genealogy_html.py       # Génération du HTML interactif
 ├── abre_gene.html                 # Template HTML D3 interactif
 ├── requirements.txt               # Dépendances Python
+├── example/                       # Exemple d'arbre généalogique produit
+│   └── arbre_gene_JMM.html        # HTML interactif d'exemple
 └── README.md                      # Ce fichier
 ```
