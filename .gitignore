@@ -6,13 +6,20 @@ resultats_*.json
 # Python
 __pycache__/
 *.py[cod]
-*$py.class
+*.pyo
+*.pyd
 *.so
-.Python
-env/
+*.egg-info/
+.eggs/
+*.log
+*.sqlite3
+*.db
+*.DS_Store
+.env
+.venv
 venv/
 ENV/
-.venv
+.envrc
 
 # IDE
 .vscode/
@@ -27,9 +34,16 @@ Thumbs.db
 
 # Jupyter
 .ipynb_checkpoints/
-*.ipynb
 
-# Tests
-.pytest_cache/
-.coverage
-htmlcov/
+# VSCode
+.vscode/
+
+# Archives
+*.zip
+*.tar.gz
+*.tar
+*.bak
+*.swp
+
+# HTML/JSON générés
+arbre.html

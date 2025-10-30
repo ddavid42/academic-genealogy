@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lepage-Bandet Descendants</title>
+    <meta charset="utf-8">
+</head>
+</head>
+<style>
+    .node.root text {
+        font-weight: bold;
+    }
+    .node circle,
+    .node rect {
+        fill: #fff;
+        stroke-width: 1.5px;
+    }
+
+    .decade circle {
+        fill: none;
+        stroke: lightgrey;
+        stroke-width: 0.5px;
+    }
+
+    .node {
+        font: 10px sans-serif;
+    }
+
+    .decade {
+        font: 8px sans-serif;
+    }
+
+    .title {
+        font: 12px sans-serif;
+        font-weight: bold;
+    }
+
+    .link {
+        fill: none;
+        stroke: #ccc;
+        stroke-width: 1.5px;
+    }
+
+    /* Rendre le slider toujours visible en haut à droite */
+    #zoom-slider-container {
+        position: fixed;
+        top: 18px;
+        right: 30px;
+        background: rgba(255,255,255,0.95);
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 8px 16px;
+        z-index: 1000;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        font-size: 15px;
+    }
+</style>
+
+<body>
+    <div id="zoom-slider-container">
+        <label for="zoom-slider">Zoom : </label>
+        <input type="range" id="zoom-slider" min="0.5" max="4" step="0.01" value="0.5" style="width:220px; vertical-align:middle;">
+        <span id="zoom-value">0.5</span>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script>
+        // Calcul dynamique du diamètre optimal après layout pour ajuster la taille du SVG à l'arbre
+        // (on garde un minimum de 600 pour éviter un SVG trop petit)
+        setTimeout(function() {
+        var nodes = d3.selectAll('.node');
+        if (nodes.empty()) return;
+        var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+        nodes.each(function() {
+        var tr = d3.select(this).attr('transform');
+        var m = tr.match(/rotate\(([-\d.]+)\)translate\(([-\d.]+)\)/);
+        if (m) {
+        var angle = parseFloat(m[1]) * Math.PI/180;
+        var r = parseFloat(m[2]);
+        var x = Math.cos(angle) * r;
+        var y = Math.sin(angle) * r;
+        if (x < minX) minX=x; if (x> maxX) maxX = x;
+            if (y < minY) minY=y; if (y> maxY) maxY = y;
+        }
+        });
+        var bboxWidth = maxX - minX, bboxHeight = maxY - minY;
+        var margin = 80;
+        var newDiameter = Math.max(Math.max(bboxWidth, bboxHeight) + 2*margin, 600);
+        d3.select('svg')
+        .attr('width', newDiameter)
+        .attr('height', newDiameter);
+        }, 200);
+    </script>
+
+    <script>
+        // JSON complet inclus directement dans le HTML (copié depuis d3_tree_029762871.json)
+        var treeData = {
+            "name": "",
+            "id": "029762871",
+            "children": [
+                {
+                    "name": "Jingyan Jourdan",
+                    "id": "166257370",
+                    "annee": "15/11/2012",
+                    "titre": "Custom floating-point arithmetic for integer processors : algorithms, implementation, and selection"
+                },
+                {
+                    "name": "Adrien Panhaleux",
+                    "id": "164309276",
+                    "annee": "27/06/2012",
+                    "titre": "Contributions à l'arithmétique flottante : codages et arrondi correct de fonctions algébriques"
+                },
+                {
+                    "name": "Erik Martin-Dorel",
+                    "id": "164762299",
+                    "annee": "26/09/2012",
+                    "titre": "Contributions à la vérification formelle d'algorithmes arithmétiques",
+                    "children": [
+                        {
+                            "name": "Pierre Pomeret-Coquot",
+                            "id": "280294670",
+                            "annee": "18/12/2023",
+                            "titre": "Décision individuelle et stratégique sous incertitude : une approche algébrique et formelle"
+                        }
+                    ]
+                },
+                {
+                    "name": "Olivier Peyran",
+                    "id": "256358753",
+                    "annee": "01/01/1997",
+                    "titre": "Synthèse d'architectures intégrées utilisant des arithmétiques redondantes"
+                },
+                {
+                    "name": "Philippe François",
+                    "id": "152889485",
+                    "annee": "01/01/1989",
+                    "titre": "Contribution à l'étude de méthodes de contrôle automatique de l'erreur d'arrondi : la méthodologie SCALP"
+                },
+                {
+                    "name": "Yvan Herreros",
+                    "id": "255772947",
+                    "annee": "01/01/1991",
+                    "titre": "Contribution à l'arithmétique des ordinateurs"
+                },
+                {
+                    "name": "Jean-Claude Bajard",
+                    "id": "034996915",
+                    "annee": "01/01/1993",
+                    "titre": "Evaluation de fonctions dans des systèmes redondants d'écriture des nombres",
+                    "children": [
+                        {
+                            "name": "Charles Caderas de Kerleau",
+                            "id": "079290426",
+                            "annee": "01/01/2003",
+                            "titre": "Analyse tridimensionnelle des modes de contractions ventriculaires sur des tomoscintigraphies synchronisées à l'électrocardiogramme"
+                        },
+                        {
+                            "name": "Laurent-Stéphane Didier",
+                            "id": "178429759",
+                            "annee": "01/01/1998",
+                            "titre": "Division et multiplication modulaire en représentation modulaire",
+                            "children": [
+                                {
+                                    "name": "Fangan Yssouf Dosso",
+                                    "id": "255367503",
+                                    "annee": "09/04/2020",
+                                    "titre": "Contribution de l'arithmétique des ordinateurs aux implémentations résistantes aux attaques par canaux auxiliaires"
+                                },
+                                {
+                                    "name": "Benoit Lopez",
+                                    "id": "182877949",
+                                    "annee": "27/11/2014",
+                                    "titre": "Implémentation optimale de filtres linéaires en arithmétique virgule fixe"
+                                },
+                                {
+                                    "name": "Julien Eynard",
+                                    "id": "18736107X",
+                                    "annee": "28/05/2015",
+                                    "titre": "Approche arithmétique RNS de la cryptographie asymétrique"
+                                },
+                                {
+                                    "name": "Asma Chaouch",
+                                    "id": "27659455X",
+                                    "annee": "15/12/2021",
+                                    "titre": "Implémentation efficace de l'arithmétique AMNS"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Mourad Gouicem",
+                            "id": "179464558",
+                            "annee": "01/01/2013",
+                            "titre": "Conception et implantation d'algorithmes efficaces pour la résolution du dilemme du fabricant de tables sur architecture parallèles"
+                        },
+                        {
+                            "name": "Samir Belfikh",
+                            "id": "070950148",
+                            "annee": "01/01/2002",
+                            "titre": "L'application des équations aux dérivées partielles en traitement d'images"
+                        },
+                        {
+                            "name": "Christophe Negre",
+                            "id": "069144168",
+                            "annee": "01/01/2004",
+                            "titre": "Opérateurs arithmétiques pour la cryptographie basée sur les courbes elliptiques",
+                            "children": [
+                                {
+                                    "name": "Jean-Marc Robert",
+                                    "id": "190125136",
+                                    "annee": "08/12/2015",
+                                    "titre": "Contrer l'attaque Simple Power Analysis efficacement dans les applications de la cryptographie asymétrique, algorithmes et implantations"
+                                },
+                                {
+                                    "name": "Kenelm Louetsi",
+                                    "id": "282678468",
+                                    "annee": "12/12/2024",
+                                    "titre": "Un environnement de développement d'applications sur un processeur à beaucoup de cœurs parallélisant"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Yannick Teglia",
+                            "id": "157448789",
+                            "annee": "01/01/2011",
+                            "titre": "Ingénierie et robustesse des systèmes embarqués sécuritaires"
+                        },
+                        {
+                            "name": "Fabien Rico",
+                            "id": "06864373X",
+                            "annee": "01/01/2001",
+                            "titre": "Fonctions élémentaires : algorithmes et précisions",
+                            "children": [
+                                {
+                                    "name": "Diala Ezzeddine",
+                                    "id": "182161110",
+                                    "annee": "01/10/2014",
+                                    "titre": "A contribution to topological learning and its application in Social Networks"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Eric Alvernhe",
+                            "id": "074277006",
+                            "annee": "01/01/2006",
+                            "titre": "Distance au minimum local pour le problème de la stéréovision"
+                        },
+                        {
+                            "name": "Vincent Zucca",
+                            "id": "242602940",
+                            "annee": "25/06/2018",
+                            "titre": "Towards efficient arithmetic for Ring-LWE based homomorphic encryption"
+                        },
+                        {
+                            "name": "Jérémy Marrez",
+                            "id": "257633642",
+                            "annee": "06/12/2019",
+                            "titre": "Représentations adaptées à l'arithmétique modulaire et à la résolution de systèmes flous"
+                        },
+                        {
+                            "name": "Laurent Imbert",
+                            "id": "157640620",
+                            "annee": "01/01/2000",
+                            "titre": "Evaluation des fonctions élémentaires : algorithmes et implémentations",
+                            "children": [
+                                {
+                                    "name": "Thomas Izard",
+                                    "id": "158809238",
+                                    "annee": "19/12/2011",
+                                    "titre": "Opérateurs arithmétiques parallèles pour la cryptographie asymétrique"
+                                },
+                                {
+                                    "name": "Ilaria Zappatore",
+                                    "id": "254443060",
+                                    "annee": "16/10/2020",
+                                    "titre": "Simultaneous Rational Function Reconstruction and applications to Algebraic Coding Theory"
+                                },
+                                {
+                                    "name": "Bastien Vialla",
+                                    "id": "225047098",
+                                    "annee": "14/12/2015",
+                                    "titre": "Contributions à l'algèbre linéaire exacte sur corps finis et au chiffrement homomorphe"
+                                },
+                                {
+                                    "name": "Camille Mutschler",
+                                    "id": "285368257",
+                                    "annee": "17/12/2024",
+                                    "titre": "Étude des gadgets masqués dans Kyber"
+                                },
+                                {
+                                    "name": "Denis Martinez",
+                                    "id": "226541150",
+                                    "annee": "02/02/2016",
+                                    "titre": "Détection de comportements à risque dans les applications en utilisant l'analyse statique"
+                                },
+                                {
+                                    "name": "Guilherme Perin",
+                                    "id": "179503006",
+                                    "annee": "28/05/2014",
+                                    "titre": "On the Resistance of RSA Countermeasures at Algorithmic, Arithmetic and Hardware Levels Against Chosen-Message, Correlation and Single-Execution Side-Channel Attacks"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Valérie Gouet-Brunet",
+                            "id": "174365020",
+                            "annee": "01/01/2000",
+                            "titre": "Mise en correspondance d'images en couleur : Application à la synthèse de vues intermédiaires",
+                            "children": [
+                                {
+                                    "name": "Imane Salhi",
+                                    "id": "253751349",
+                                    "annee": "14/01/2021",
+                                    "titre": "Intelligent embedded camera for robust object tracking on mobile platform"
+                                },
+                                {
+                                    "name": "Neelanjan Bhowmik",
+                                    "id": "225615347",
+                                    "annee": "07/11/2017",
+                                    "titre": "Recherche multi-descripteurs dans les fonds photographiques numérisés"
+                                },
+                                {
+                                    "name": "Clément Dechesne",
+                                    "id": "225633302",
+                                    "annee": "04/12/2017",
+                                    "titre": "Segmentation sémantique de peuplement forestiers par analyse conjointe d'imagerie multispectrale très haute résolution et de données 3D Lidar aéroportées"
+                                },
+                                {
+                                    "name": "Emile Blettery",
+                                    "id": "275817229",
+                                    "annee": "09/01/2024",
+                                    "titre": "Structuring heritage iconographic collections : from automatic interlinking to semi-automatic visual validation"
+                                },
+                                {
+                                    "name": "Dimitri Gominski",
+                                    "id": "260857920",
+                                    "annee": "09/11/2021",
+                                    "titre": "Generalizable features and image search for multi-source interconnection and analysis"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Thomas Plantard",
+                            "id": "11133036X",
+                            "annee": "01/01/2005",
+                            "titre": "Arithmétique modulaire pour la cryptographie"
+                        },
+                        {
+                            "name": "Julien Eynard",
+                            "id": "18736107X",
+                            "annee": "28/05/2015",
+                            "titre": "Approche arithmétique RNS de la cryptographie asymétrique"
+                        },
+                        {
+                            "name": "Olga Kupriianova",
+                            "id": "193656655",
+                            "annee": "11/12/2015",
+                            "titre": "Towards a modern floating-point environment"
+                        },
+                        {
+                            "name": "Jérôme Courtois",
+                            "id": "258273755",
+                            "annee": "10/09/2020",
+                            "titre": "Leak study of cryptosystem implementations in randomized RNS arithmetic"
+                        },
+                        {
+                            "name": "José Marconi Rodrigues",
+                            "id": "112042872",
+                            "annee": "01/01/2006",
+                            "titre": "Transfert sécurisé d’images par combinaison de techniques de compression, cryptage et marquage"
+                        },
+                        {
+                            "name": "Anastasia Volkova",
+                            "id": "230416292",
+                            "annee": "25/09/2017",
+                            "titre": "Towards reliable implementation of digital filters",
+                            "children": [
+                                {
+                                    "name": "Rémi Garcia",
+                                    "id": "278694926",
+                                    "annee": "25/10/2023",
+                                    "titre": "Towards optimized multiplierless arithmetic circuits"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Thibauld Feneuil",
+                            "id": "273560344",
+                            "annee": "23/10/2023",
+                            "titre": "Post-Quantum Signatures from Secure Multiparty Computation"
+                        }
+                    ]
+                },
+                {
+                    "name": "Christophe Mazenc",
+                    "id": "186423616",
+                    "annee": "01/01/1993",
+                    "titre": "Systèmes de représentation des nombres et arithmétiques sur machines parallèles"
+                },
+                {
+                    "name": "Arnaud Tisserand",
+                    "id": "060154160",
+                    "annee": "01/01/1997",
+                    "titre": "Adéquation arithmétique architecture : problèmes et étude de cas",
+                    "children": [
+                        {
+                            "name": "Danuta Pamula",
+                            "id": "170456501",
+                            "annee": "01/01/2012",
+                            "titre": "Opérateurs arithmétiques sur GF (2m) : étude de compromis performances-consommation-sécurité"
+                        },
+                        {
+                            "name": "Audrey Lucas",
+                            "id": "243133960",
+                            "annee": "19/12/2019",
+                            "titre": "Support logiciel robuste aux attaques passives et actives pour l'arithmétique de la cryptographie asymétrique sur des (très) petits coeurs de calcul"
+                        },
+                        {
+                            "name": "Gabriel Gallin",
+                            "id": "234998873",
+                            "annee": "29/11/2018",
+                            "titre": "Unités arithmétiques et cryptoprocesseurs matériels pour la cryptographie sur courbe hyperelliptique"
+                        },
+                        {
+                            "name": "Fabrice Lozachmeur",
+                            "id": "282658556",
+                            "annee": "23/01/2024",
+                            "titre": "Extensions cryptographiques pour processeurs embarqués"
+                        },
+                        {
+                            "name": "Nicolas Veyrat-Charvillon",
+                            "id": "122652711",
+                            "annee": "01/01/2007",
+                            "titre": "Opérateurs arithmétiques matériels pour des applications spécifiques"
+                        },
+                        {
+                            "name": "Thomas Chabrier",
+                            "id": "174580924",
+                            "annee": "18/06/2013",
+                            "titre": "Arithmetic recodings for ECC cryptoprocessors with protections against side-channel attacks"
+                        },
+                        {
+                            "name": "Karim Bigou",
+                            "id": "183954211",
+                            "annee": "03/11/2014",
+                            "titre": "Étude théorique et implantation matérielle d'unités de calcul en représentation modulaire des nombres pour la cryptographie sur courbes elliptiques",
+                            "children": [
+                                {
+                                    "name": "Libey Djath",
+                                    "id": "258003944",
+                                    "annee": "25/05/2021",
+                                    "titre": "Accélérateurs matériels RNS flexibles pour la cryptographie asymétrique à haute sécurité"
+                                },
+                                {
+                                    "name": "Timo Zijlstra",
+                                    "id": "253748933",
+                                    "annee": "28/09/2020",
+                                    "titre": "Accélérateurs matériels sécurisés pour la cryptographie post-quantique"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Jérémy Métairie",
+                            "id": "196151090",
+                            "annee": "19/05/2016",
+                            "titre": "Contribution aux opérateurs arithmétiques GF(2m) et leurs applications à la cryptographie sur courbes elliptiques"
+                        },
+                        {
+                            "name": "Geneviève Ndour",
+                            "id": "241039479",
+                            "annee": "17/07/2019",
+                            "titre": "Approximate computing for high energy-efficiency in IoT applications"
+                        },
+                        {
+                            "name": "Libey Djath",
+                            "id": "258003944",
+                            "annee": "25/05/2021",
+                            "titre": "Accélérateurs matériels RNS flexibles pour la cryptographie asymétrique à haute sécurité"
+                        },
+                        {
+                            "name": "Timo Zijlstra",
+                            "id": "253748933",
+                            "annee": "28/09/2020",
+                            "titre": "Accélérateurs matériels sécurisés pour la cryptographie post-quantique"
+                        },
+                        {
+                            "name": "Morgane Vollmer",
+                            "id": "284804541",
+                            "annee": "20/12/2024",
+                            "titre": "Contributions à l'arithmétique RNS pour la cryptographie logicielle"
+                        },
+                        {
+                            "name": "Vincent Migliore",
+                            "id": "226904504",
+                            "annee": "26/09/2017",
+                            "titre": "Cybersécurite matérielle et conception de composants dédiés au calcul homomorphe",
+                            "children": [
+                                {
+                                    "name": "Cyrius Nugier",
+                                    "id": "27197916X",
+                                    "annee": "04/07/2023",
+                                    "titre": "Adaptation d'Outils Cryptographiques pour un Contexte Post-Quantique"
+                                },
+                                {
+                                    "name": "Yuxiao Mao",
+                                    "id": "264386523",
+                                    "annee": "01/07/2022",
+                                    "titre": "Détection dynamique d'attaques logicielles et matérielles basée sur l'analyse de signaux microarchitecturaux"
+                                },
+                                {
+                                    "name": "Rémi Adelin",
+                                    "id": "271978988",
+                                    "annee": "06/07/2023",
+                                    "titre": "Protection des données des véhicules connectés : une approche cryptographique reposant sur le chiffrement basé attributs"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Noura Ait Manssour",
+                            "id": "272603511",
+                            "annee": "13/01/2023",
+                            "titre": "Sécurisation matérielle de processeurs embarqués face aux attaques par injection de fautes"
+                        },
+                        {
+                            "name": "Saurabh-Kumar Raina",
+                            "id": "111070643",
+                            "annee": "01/01/2006",
+                            "titre": "FLIP, a floating-point library for integer processors"
+                        }
+                    ]
+                },
+                {
+                    "name": "Vincent Lefèvre",
+                    "id": "258258659",
+                    "annee": "01/01/2000",
+                    "titre": "Moyens arithmétiques pour un calcul fiable"
+                },
+                {
+                    "name": "Sylvain Chevillard",
+                    "id": "14286708X",
+                    "annee": "01/01/2009",
+                    "titre": "Évaluation efficace de fonctions numériques : Outils et exemples"
+                },
+                {
+                    "name": "Xavier Merrheim",
+                    "id": "187386358",
+                    "annee": "01/01/1994",
+                    "titre": "Bases discrètes et calcul des fonctions élémentaires par matériel"
+                },
+                {
+                    "name": "Sylvanus Kla Koué",
+                    "id": "186174748",
+                    "annee": "01/01/1993",
+                    "titre": "Calcul parallèle et en-ligne des fonctions arithmétiques"
+                },
+                {
+                    "name": "Hong-Jin Yeh",
+                    "id": "186150342",
+                    "annee": "01/01/1993",
+                    "titre": "Architectures et algorithmes parallèles basés sur le calcul arithmétique en série"
+                },
+                {
+                    "name": "Marc Daumas",
+                    "id": "035175494",
+                    "annee": "01/01/1996",
+                    "titre": "Contributions à l'arithmétique des ordinateurs : vers une maîtrise de la précision",
+                    "children": [
+                        {
+                            "name": "Caroline Collange",
+                            "id": "151116776",
+                            "annee": "01/01/2010",
+                            "titre": "Enjeux de conception des architectures GPGPU : unités arithmétiques spécialisées et exploitation de la régularité",
+                            "children": [
+                                {
+                                    "name": "Sajith Kalathingal",
+                                    "id": "203619676",
+                                    "annee": "13/12/2016",
+                                    "titre": "Transforming TLP into DLP with the dynamic inter-thread vectorization architecture"
+                                },
+                                {
+                                    "name": "Niloofar Charmchi",
+                                    "id": "251039676",
+                                    "annee": "10/07/2020",
+                                    "titre": "Compressed cache layout aware prefetching"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Sylvie Boldo",
+                            "id": "112505821",
+                            "annee": "01/01/2004",
+                            "titre": "Preuves formelles en arithmétiques à virgule flottante",
+                            "children": [
+                                {
+                                    "name": "Florian Faissole",
+                                    "id": "241944538",
+                                    "annee": "13/12/2019",
+                                    "titre": "Formalisations d’analyses d’erreurs en analyse numérique et en arithmétique à virgule flottante"
+                                },
+                                {
+                                    "name": "Thi Minh Tuyen Nguyen",
+                                    "id": "161220843",
+                                    "annee": "11/06/2012",
+                                    "titre": "Taking architecture and compiler into account in formal proofs of numerical programs"
+                                },
+                                {
+                                    "name": "Catherine Lelay",
+                                    "id": "187915652",
+                                    "annee": "15/06/2015",
+                                    "titre": "Repenser la bibliothèque réelle de Coq : vers une formalisation de l'analyse classique mieux adaptée"
+                                },
+                                {
+                                    "name": "Diane Gallois-Wong",
+                                    "id": "25460224X",
+                                    "annee": "04/03/2021",
+                                    "titre": "Formalisation en Coq des algorithmes de filtre numérique calculés en précision finie"
+                                },
+                                {
+                                    "name": "Houda Mouhcine",
+                                    "id": "282537732",
+                                    "annee": "09/12/2024",
+                                    "titre": "Formal Proofs in Applied Mathematics : A Coq Formalization of Simplicial Lagrange Finite Elements"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Guillaume Melquiond",
+                            "id": "117280836",
+                            "annee": "01/01/2006",
+                            "titre": "De l'arithmétique d'intervalles à la certification de programmes",
+                            "children": [
+                                {
+                                    "name": "Raphaël Rieu",
+                                    "id": "250813858",
+                                    "annee": "03/11/2020",
+                                    "titre": "Development and verification of arbitrary-precision integer arithmetic libraries"
+                                },
+                                {
+                                    "name": "Catherine Lelay",
+                                    "id": "187915652",
+                                    "annee": "15/06/2015",
+                                    "titre": "Repenser la bibliothèque réelle de Coq : vers une formalisation de l'analyse classique mieux adaptée"
+                                },
+                                {
+                                    "name": "Antoine Lanco",
+                                    "id": "276454081",
+                                    "annee": "15/12/2023",
+                                    "titre": "Stratégies pour la réduction forte"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Claire Finot-Moreau",
+                            "id": "135334241",
+                            "annee": "01/01/2001",
+                            "titre": "Preuves et algorithmes utilisant l'arithmétique flottante normalisée IEEE"
+                        },
+                        {
+                            "name": "Francisco José Cháves Alonso",
+                            "id": "120706296",
+                            "annee": "01/01/2007",
+                            "titre": "Utilisation et certification de l'arithmétique d'intervalles dans un assistant de preuves"
+                        }
+                    ]
+                },
+                {
+                    "name": "Antoine Plet",
+                    "id": "203112539",
+                    "annee": "07/07/2017",
+                    "titre": "Contribution to error analysis of algorithms in floating-point arithmetic"
+                },
+                {
+                    "name": "Serge Torres",
+                    "id": "03522777X",
+                    "annee": "22/09/2016",
+                    "titre": "Tools for the Design of Reliable and Efficient Functions Evaluation Libraries"
+                },
+                {
+                    "name": "Valentina Popescu",
+                    "id": "203725204",
+                    "annee": "06/07/2017",
+                    "titre": "Towards fast and certified multiple-precision librairies"
+                },
+                {
+                    "name": "Mioara Maria Joldes",
+                    "id": "156990415",
+                    "annee": "26/09/2011",
+                    "titre": "Approximations polynomiales rigoureuses et applications",
+                    "children": [
+                        {
+                            "name": "Florent Bréhard",
+                            "id": "240414284",
+                            "annee": "12/07/2019",
+                            "titre": "Certified numerics in function spaces : polynomial approximations meet computer algebra and formal proof"
+                        },
+                        {
+                            "name": "Paulo Ricardo Arantes Gilz",
+                            "id": "238330427",
+                            "annee": "17/10/2018",
+                            "titre": "Embedded and validated control algorithms for the spacecraft rendezvous"
+                        }
+                    ]
+                },
+                {
+                    "name": "David Defour",
+                    "id": "104542454",
+                    "annee": "01/01/2003",
+                    "titre": "Fonctions élémentaires : algorithmes et implémentations efficaces pour l'arrondi correct en double précision",
+                    "children": [
+                        {
+                            "name": "Hugues de Lassus Saint-Genies",
+                            "id": "228970989",
+                            "annee": "17/05/2018",
+                            "titre": "Elementary functions : towards automatically generated, efficient, and vectorizable implementations"
+                        },
+                        {
+                            "name": "Manuel Marin",
+                            "id": "190147245",
+                            "annee": "11/12/2015",
+                            "titre": "GPU-enhanced power flow analysis"
+                        }
+                    ]
+                },
+                {
+                    "name": "Mario Fiallos Aguilar",
+                    "id": "187425132",
+                    "annee": "01/01/1994",
+                    "titre": "Conception et simulation d'une machine massivement parallèle en grande précision"
+                },
+                {
+                    "name": "Claire Finot-Moreau",
+                    "id": "135334241",
+                    "annee": "01/01/2001",
+                    "titre": "Preuves et algorithmes utilisant l'arithmétique flottante normalisée IEEE"
+                },
+                {
+                    "name": "Jérémie Detrey",
+                    "id": "176600337",
+                    "annee": "01/01/2007",
+                    "titre": "Arithmétiques réelles sur FPGA : virgule fixe, virgule flottante et système logarithmique",
+                    "children": [
+                        {
+                            "name": "Svyatoslav Covanov",
+                            "id": "228323290",
+                            "annee": "05/06/2018",
+                            "titre": "Algorithmes de multiplication : complexité bilinéaire et méthodes asymptotiquement rapides"
+                        },
+                        {
+                            "name": "Hamza Jeljeli",
+                            "id": "187825742",
+                            "annee": "16/07/2015",
+                            "titre": "Accélérateurs logiciels et matériels pour l'algèbre linéaire creuse sur les corps finis"
+                        },
+                        {
+                            "name": "Nicolas Estibals",
+                            "id": "176600213",
+                            "annee": "30/10/2013",
+                            "titre": "Algorithmes et arithmétique pour l'implémentation de couplages criptographiques"
+                        }
+                    ]
+                },
+                {
+                    "name": "Saurabh-Kumar Raina",
+                    "id": "111070643",
+                    "annee": "01/01/2006",
+                    "titre": "FLIP, a floating-point library for integer processors"
+                }
+            ]
+        };
+
+// Redimensionnement dynamique du SVG selon la taille de l'arbre
+setTimeout(function() {
+    var nodes = d3.selectAll('.node');
+    if (nodes.empty()) return;
+    var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    nodes.each(function() {
+        var tr = d3.select(this).attr('transform');
+        var m = tr.match(/rotate\(([-\d.]+)\)translate\(([-\d.]+)\)/);
+        if (m) {
+            var angle = parseFloat(m[1]) * Math.PI/180;
+            var r = parseFloat(m[2]);
+            var x = Math.cos(angle) * r;
+            var y = Math.sin(angle) * r;
+            if (x < minX) minX = x;
+            if (x > maxX) maxX = x;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+        }
+    });
+    var bboxWidth = maxX - minX, bboxHeight = maxY - minY;
+    var margin = 80;
+    var newDiameter = Math.max(Math.max(bboxWidth, bboxHeight) + 2*margin, 600);
+    d3.select('svg')
+        .attr('width', newDiameter)
+        .attr('height', newDiameter);
+}, 200);
+
+
+var diameter = 1400;
+
+// Trie récursif des enfants par année pour limiter les croisements
+function sortChildrenByYear(node) {
+    if (node.children && node.children.length > 0) {
+        node.children.sort(function(a, b) {
+            function getYear(n) {
+                var annee = n.annee || n.date || n.anneeSoutenance || n.defense_date;
+                if (!annee) return 0;
+                var match = (""+annee).match(/\d{4}/);
+                return match ? parseInt(match[0]) : parseInt(annee) || 0;
+            }
+            return getYear(a) - getYear(b);
+        });
+        node.children.forEach(sortChildrenByYear);
+    }
+}
+sortChildrenByYear(treeData);
+
+// Trie récursif des enfants par année pour limiter les croisements
+function sortChildrenByYear(node) {
+    if (node.children && node.children.length > 0) {
+        node.children.sort(function(a, b) {
+            function getYear(n) {
+                var annee = n.annee || n.date || n.anneeSoutenance || n.defense_date;
+                if (!annee) return 0;
+                var match = (""+annee).match(/\d{4}/);
+                return match ? parseInt(match[0]) : parseInt(annee) || 0;
+            }
+            return getYear(a) - getYear(b);
+        });
+        node.children.forEach(sortChildrenByYear);
+    }
+}
+sortChildrenByYear(treeData);
+
+// Trouver l'année min et max dans l'arbre
+function getAllYears(node, arr) {
+    let annee = node.annee || node.date || node.anneeSoutenance || node.defense_date;
+    if (annee) {
+        let match = (""+annee).match(/\d{4}/);
+        let year = match ? parseInt(match[0]) : parseInt(annee);
+        if (!isNaN(year)) arr.push(year);
+    }
+    if (node.children) node.children.forEach(child => getAllYears(child, arr));
+}
+var allYears = [];
+getAllYears(treeData, allYears);
+var minYear = d3.min(allYears), maxYear = d3.max(allYears);
+var rmin = 120, rmax = diameter/2 - 40;
+function yearToY(year){
+    if (!minYear || !maxYear || minYear === maxYear) return rmax;
+    return rmin + (year - minYear) * (rmax - rmin) / (maxYear - minYear);
+}
+function getY(d) {
+        // Si c'est la racine (pas de parent), placer au centre
+        if (!d.parent) return 0;
+        let annee = d.annee;
+        if (!annee && d.date) annee = d.date;
+        if (!annee && d.anneeSoutenance) annee = d.anneeSoutenance;
+        if (!annee && d.defense_date) annee = d.defense_date;
+        if (!annee) return rmin;
+        let match = (""+annee).match(/\d{4}/);
+        let year = match ? parseInt(match[0]) : parseInt(annee);
+        if (isNaN(year)) return rmin;
+        return yearToY(year);
+}
+
+var tree = d3.layout.tree()
+        .size([360, diameter / 2 - 40])
+        .separation(function(a, b) {
+            var sep = (a.parent == b.parent ? 1 : 2) / a.depth;
+            // Si a ou b a beaucoup d’enfants, on espace plus
+            if ((a.children && a.children.length > 2) || (b.children && b.children.length > 2)) sep *= 1.5;
+            return sep;
+        });
+
+var diagonal = d3.svg.diagonal.radial()
+    .source(function(d){ 
+          if(!d.source.name || d.source.name=="") 
+          return {x: d.target.x, y: getY(d.source)}; 
+        else 
+          return {x: d.source.x, y: getY(d.source)};
+      })
+    .target(function(d){ return {x: d.target.x, y: getY(d.target)};})
+    .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
+
+
+// Ajout du zoom/pan interactif
+var zoom = d3.behavior.zoom()
+    .scaleExtent([0.5, 4])
+    .on("zoom", zoomed)
+    .scale(0.5)
+    .translate([diameter/2, diameter/2]);
+
+var svg = d3.select("body").append("svg")
+
+    .attr("width", diameter)
+    .attr("height", diameter)
+    .style("background", "#f8f8f8")
+    .call(zoom)
+    .append("g")
+    .attr("class", "zoomable-group")
+    .attr("transform", "translate(" + (diameter/2) + "," + (diameter/2) + ")scale(0.5)");
+
+function zoomed() {
+        var t = d3.event.translate, s = d3.event.scale;
+        d3.select(".zoomable-group")
+            .attr("transform",
+                "translate(" + t[0] + "," + t[1] + ")scale(" + s + ")"
+            );
+        // Mettre à jour le slider si le zoom vient de la souris
+        var slider = document.getElementById('zoom-slider');
+        if (slider && Math.abs(slider.value - s) > 0.01) {
+            slider.value = s;
+            document.getElementById('zoom-value').textContent = s.toFixed(2);
+        }
+    }
+
+// Synchroniser le slider avec le zoom D3
+window.addEventListener('DOMContentLoaded', function() {
+
+    // Redimensionnement dynamique du SVG selon la taille de l'arbre
+    setTimeout(function() {
+        var nodes = d3.selectAll('.node');
+        if (nodes.empty()) return;
+        var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+        nodes.each(function() {
+            var tr = d3.select(this).attr('transform');
+            var m = tr.match(/rotate\(([-\d.]+)\)translate\(([-\d.]+)\)/);
+            if (m) {
+                var angle = parseFloat(m[1]) * Math.PI/180;
+                var r = parseFloat(m[2]);
+                var x = Math.cos(angle) * r;
+                var y = Math.sin(angle) * r;
+                if (x < minX) minX = x;
+                if (x > maxX) maxX = x;
+                if (y < minY) minY = y;
+                if (y > maxY) maxY = y;
+            }
+        });
+        var bboxWidth = maxX - minX, bboxHeight = maxY - minY;
+        var margin = 80;
+        var newDiameter = Math.max(Math.max(bboxWidth, bboxHeight) + 2*margin, 600);
+        d3.select('svg')
+            .attr('width', newDiameter)
+            .attr('height', newDiameter);
+    }, 200);
+            var slider = document.getElementById('zoom-slider');
+            if (slider) {
+                slider.addEventListener('input', function() {
+                    var s = parseFloat(this.value);
+                    document.getElementById('zoom-value').textContent = s.toFixed(2);
+                    // Appliquer le zoom programmatique sans recentrer
+                    var current = zoom.translate();
+                    zoom.scale(s);
+                    // On garde la translation courante
+                    d3.select(".zoomable-group")
+                        .attr("transform", "translate(" + current[0] + "," + current[1] + ")scale(" + s + ")");
+                });
+            }
+
+                // Centrage et zoom initial automatique pour que l'arbre occupe la fenêtre
+                setTimeout(function() {
+                    var nodes = d3.selectAll('.node');
+                    if (nodes.empty()) return;
+                    var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+                    nodes.each(function() {
+                        var tr = d3.select(this).attr('transform');
+                        // tr = rotate(angle)translate(r)
+                        var m = tr.match(/rotate\(([-\d.]+)\)translate\(([-\d.]+)\)/);
+                        if (m) {
+                            var angle = parseFloat(m[1]) * Math.PI/180;
+                            var r = parseFloat(m[2]);
+                            var x = Math.cos(angle) * r;
+                            var y = Math.sin(angle) * r;
+                            if (x < minX) minX = x;
+                            if (x > maxX) maxX = x;
+                            if (y < minY) minY = y;
+                            if (y > maxY) maxY = y;
+                        }
+                    });
+                    var bboxWidth = maxX - minX, bboxHeight = maxY - minY;
+                    var margin = 80;
+                    var scale = Math.min((diameter - 2*margin) / bboxWidth, (diameter - 2*margin) / bboxHeight, 1);
+                    var tx = diameter/2 - scale * (minX + bboxWidth/2);
+                    var ty = diameter/2 - scale * (minY + bboxHeight/2);
+                    zoom.scale(scale);
+                    zoom.translate([tx, ty]);
+                    d3.select(".zoomable-group")
+                        .attr("transform", "translate(" + tx + "," + ty + ")scale(" + scale + ")");
+                    if (slider) {
+                        slider.value = scale;
+                        document.getElementById('zoom-value').textContent = scale.toFixed(2);
+                    }
+                }, 100);
+    });
+
+
+    // Utiliser treeData directement
+    var nodes = tree.nodes(treeData),
+            links = tree.links(nodes);
+
+  var link = svg.selectAll(".link")
+      .data(links)
+    .enter().append("path")
+      .attr("class", "link")
+      .attr("d", diagonal);
+
+
+  var decade = svg.selectAll(".decade")
+      .data([1990,1995,2000,2005,2010,2015,2020,2025])
+    .enter().append("g")
+      .attr("class", "decade")
+  decade.append("circle")
+      .attr("r", function(d){return yearToY(d)});
+
+  decade.append("text")
+      .attr("dy", ".31em")
+      .attr("transform", function(d) { return "translate(-10,-"+yearToY(d)+")" })
+      .text(function(d) { return d; });
+
+    svg.selectAll(".title")
+        .data(["Jean Michel Muller"])
+        .enter().append("text")
+            .attr("class", "title")
+            .attr("transform", function(d) { return "translate(-50,20)" })
+            .style("font-weight", "bold")
+            .text(function(d) { return d; });
+
+    var node = svg.selectAll(".node")
+            .data(nodes)
+        .enter().append("g")
+            .attr("class", function(d) { return d.depth === 0 ? "node root" : "node"; })
+            .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + getY(d) + ")"; })
+
+  var c = d3.scale.category10();
+  node.append("circle")
+            .attr("r", 4.5)
+            .attr("stroke", function(d){return c(d.depth)})
+            .on('mouseover', function(d) {
+                var titre = d.titre || d.title || d.titreThese || d.thesis_title || "";
+                var date = d.annee || d.date || d.anneeSoutenance || d.defense_date || "";
+                if (titre || date) {
+                    var tooltip = d3.select('#tooltip');
+                    var html = '<b>' + d.name + '</b>';
+                    if(date) html += '<br><span style="color:#888">' + date + '</span>';
+                    if(titre) html += '<br>' + titre;
+                    tooltip.style('opacity', 1)
+                        .html(html)
+                        .style('max-width', '400px')
+                        .style('min-width', '200px')
+                        .style('white-space', 'normal');
+                    // Positionnement adaptatif
+                    var svgWidth = d3.select('svg').node().clientWidth;
+                    var mouseX = d3.event.pageX;
+                    var left = (mouseX > svgWidth/2) ? (mouseX - 410) : (mouseX + 10);
+                    tooltip.style('left', left + 'px')
+                        .style('top', (d3.event.pageY - 28) + 'px');
+                }
+            })
+            .on('mousemove', function(d) {
+                var tooltip = d3.select('#tooltip');
+                var svgWidth = d3.select('svg').node().clientWidth;
+                var mouseX = d3.event.pageX;
+                var left = (mouseX > svgWidth/2) ? (mouseX - 410) : (mouseX + 10);
+                tooltip.style('left', left + 'px')
+                    .style('top', (d3.event.pageY - 28) + 'px');
+            })
+            .on('mouseout', function(d) {
+                d3.select('#tooltip').style('opacity', 0);
+            });
+    node.append("text")
+            .attr("dy", ".31em")
+            .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+            .attr("transform", function(d) { return d.x < 180 ? "translate(8)" : "rotate(180)translate(-8)"; })
+            .text(function(d) { return d.name; });
+
+    // Tooltip div
+    d3.select("body").append("div")
+    .attr("id", "tooltip")
+    .style("position", "absolute")
+    .style("background", "rgba(255,255,255,0.95)")
+    .style("border", "1px solid #aaa")
+    .style("border-radius", "8px")
+    .style("padding", "8px")
+    .style("font-size", "16px")
+    .style("font-family", "sans-serif")
+    .style("pointer-events", "none")
+    .style("opacity", 0)
+    .style("max-width", "400px")
+    .style("min-width", "200px")
+    .style("white-space", "normal");
+// });
+
+// d3.select(self.frameElement).style("height", diameter - 150 + "px");
+
+    </script>
+</body>
+
+</html>
